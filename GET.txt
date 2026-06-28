@@ -1,0 +1,18 @@
+// Проверяем, что статус-код ответа равен 200
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+// Проверяем, что в теле ответа есть нужные поля
+pm.test("Response has required fields", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property('args');
+    pm.expect(jsonData).to.have.property('headers');
+    pm.expect(jsonData).to.have.property('url');
+});
+
+// Проверяем, что URL в ответе совпадает с запрошенным
+pm.test("URL is correct", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.url).to.eql('https://postman-echo.com/get');
+});

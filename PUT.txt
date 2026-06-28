@@ -1,0 +1,17 @@
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response has required fields", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData).to.have.property('data');
+    pm.expect(jsonData).to.have.property('json');
+    pm.expect(jsonData).to.have.property('headers');
+    pm.expect(jsonData).to.have.property('url');
+});
+
+pm.test("Sent data matches response", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.json.product).to.eql('Laptop');
+    pm.expect(jsonData.json.price).to.eql(1500);
+});
